@@ -44,7 +44,7 @@ The rest of the code is properly commented and self-explanatory. Tweaks can be m
 * **Rajat Dipta Biswas** - *Original Game*
 * **Alberto Leão** - *Refactoring to OOP, Multiplayer feature*
 * **Eder** - *Multiplayer feature*
-* **Oi** - *Multiplayer feature*
+* **Anderson Vieira do Nascimento** - *Multiplayer feature*
 
 
 ## Acknowledgements
