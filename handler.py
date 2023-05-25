@@ -4,7 +4,6 @@ Made with PyGame
 """
 
 import pygame
-import random
 import sys
 
 from core import config
@@ -30,48 +29,9 @@ def main():
                 sys.exit()
             # Whenever a key is pressed down
             elif event.type == pygame.KEYDOWN:
-                # W -> Up; S -> Down; A -> Left; D -> Right
-                if event.key == pygame.K_UP or event.key == ord('w'):
-                    snake.change_to = 'UP'
-                if event.key == pygame.K_DOWN or event.key == ord('s'):
-                    snake.change_to = 'DOWN'
-                if event.key == pygame.K_LEFT or event.key == ord('a'):
-                    snake.change_to = 'LEFT'
-                if event.key == pygame.K_RIGHT or event.key == ord('d'):
-                    snake.change_to = 'RIGHT'
-                # Esc -> Create event to quit the game
-                if event.key == pygame.K_ESCAPE:
-                    pygame.event.post(pygame.event.Event(pygame.QUIT))
+                snake.change_direction(event)
 
-        # Making sure the snake cannot move in the opposite direction instantaneously
-        if snake.change_to == 'UP' and snake.direction != 'DOWN':
-            snake.direction = 'UP'
-        if snake.change_to == 'DOWN' and snake.direction != 'UP':
-            snake.direction = 'DOWN'
-        if snake.change_to == 'LEFT' and snake.direction != 'RIGHT':
-            snake.direction = 'LEFT'
-        if snake.change_to == 'RIGHT' and snake.direction != 'LEFT':
-            snake.direction = 'RIGHT'
-
-        # Moving the snake
-        if snake.direction == 'UP':
-            snake.position[1] -= 10
-        if snake.direction == 'DOWN':
-            snake.position[1] += 10
-        if snake.direction == 'LEFT':
-            snake.position[0] -= 10
-        if snake.direction == 'RIGHT':
-            snake.position[0] += 10
-
-        # Snake body growing mechanism
-        snake.body.insert(0, list(snake.position))
-        if snake.position[0] == food.position[0] and snake.position[1] == food.position[1]:
-            snake.score += 1
-            food.spawn = False
-        else:
-            snake.body.pop()
-
-        # Spawning food on the screen
+        snake.move(food)
         if not food.spawn:
             food.spawn_new_food()
 
