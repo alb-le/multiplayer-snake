@@ -1,18 +1,24 @@
 import random
 
 import pygame
+from pygame import Color
 
-from core import config
+from core import config, client
+from models.snake_nest import snake_nest
 
 
 class Snake:
-    def __init__(self):
+    def __init__(self, color: Color, number: int):
         random_init_position = random.randrange(10, config.frame_size_x, 10)
         self.position = [100, random_init_position]
         self.body = [[100, random_init_position], [100-10, random_init_position], [100-(2*10), random_init_position]]
         self.score = 0
         self.direction = 'RIGHT'
         self.change_to = self.direction
+        self.color = color
+        self.number = number
+        self.game_over = False
+        snake_nest.add_new_snake_to_nest(self.body)
 
     def change_direction(self, event):
         # W -> Up; S -> Down; A -> Left; D -> Right
@@ -26,6 +32,7 @@ class Snake:
             self.change_to = 'RIGHT'
         # Esc -> Create event to quit the game
         if event.key == pygame.K_ESCAPE:
+            client.close_conection()
             pygame.event.post(pygame.event.Event(pygame.QUIT))
 
     def move(self, food):
