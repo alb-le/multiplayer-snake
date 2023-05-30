@@ -47,13 +47,14 @@ class Render:
         self.game_window.blit(score_surface, score_rect)
         # pygame.display.flip()
 
-    def draw_snakes(self, snake_body):
+    def draw_snakes(self, snake_nest):
         self.game_window.fill(config.black)
-        for pos in snake_body:
-            # Snake body
-            # .draw.rect(play_surface, color, xy-coordinate)
-            # xy-coordinate -> .Rect(x, y, size_x, size_y)
-            pygame.draw.rect(self.game_window, config.green, pygame.Rect(pos[0], pos[1], 10, 10))
+        for snake in snake_nest:
+            for pos in snake:
+                # Snake body
+                # .draw.rect(play_surface, color, xy-coordinate)
+                # xy-coordinate -> .Rect(x, y, size_x, size_y)
+                pygame.draw.rect(self.game_window, snake.color, pygame.Rect(pos[0], pos[1], 10, 10))
 
     def draw_food(self, food):
         # Snake food
